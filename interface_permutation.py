@@ -101,7 +101,7 @@ def initialize_and_tranform_PUF(n: int, k: int, N: int, seed_sim: int, noisiness
         for i in range(unsatationary_bit_len):
             tmp = challenges[:, loc[(i + hop) % (unsatationary_bit_len - 1)]]
             challenges[:, loc[(i + hop) % (unsatationary_bit_len - 1)]] = challenges[:, loc[(i)]]
-            challenges[:, loc[(i + hop) % (unsatationary_bit_len - 1)]] = tmp
+            challenges[:, loc[(i) % (unsatationary_bit_len - 1)]] = tmp
         challenges = np.cumprod(np.fliplr(challenges), axis=1, dtype=np.int8)
         print(challenges.shape)
         return challenges, responses
