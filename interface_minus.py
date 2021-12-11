@@ -155,11 +155,11 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
     started = datetime.now()
     history = model.fit(
         X_train, y_train, epochs=epochs, batch_size=BATCH_SIZE,
-        callbacks=[callbacks], shuffle=True, validation_split=0.05, verbose=0
+        callbacks=[callbacks], shuffle=True, validation_split=0.01, verbose=1
     )
 
     # 6. evaluate result
-    results = model.evaluate(X_test, y_test, batch_size=128, verbose=0)
+    results = model.evaluate(X_test, y_test, batch_size=128, verbose=1)
 
     fields = ['k', 'n', 'N', 'noise', 'training_size', 'test_accuracy', 'test_loss', 'time', 'seed', 'bit_length',
               'group', 'location']
@@ -218,39 +218,39 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
                     write.writerows(rows)
 
 
-def main(argv=None):
-    seed = [0, 6, 17, 44, 60, 231, 634, 232, 654, 543] # set the seed here
-    interface = True  # set the parameter if the interface is added here
-    # parameters for the function run()
-    # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
-    # double_use_bit_len: int, group: int, puf: str) -> dict:
-
-    # APUF
-    puf = "apuf"
-    double_use_bit_len1 = [1, 2, 3, 4, 5, 6, 7, 8]
-    group = 0
-    for i in seed:
-        for j in double_use_bit_len1:
-            run(64, 3, 10000000, i, 0.00, 100000, interface, j, group, puf)
-
-
-    # 3 XPUF
-    puf = "xpuf"
-    double_use_bit_len2 = [1, 2, 3, 4, 5, 6, 7]
-    group = 0
-    for i in seed:
-        for j in double_use_bit_len2:
-            run(64, 3, 10000000, i, 0.00, 100000, interface, j, group, puf)
-
-    # FFPUF
-    puf = "ffpuf"
-    double_use_bit_len2 = [1, 2, 3, 4, 5, 6, 7]
-    group = 0
-    for i in seed:
-        for j in double_use_bit_len2:
-            run(64, 1, 10000000, i, 0.00, 100000, interface, j, group, puf)
-    #
-
-
-if __name__ == '__main__':
-    main()
+# def main(argv=None):
+#     seed = [0, 6, 17, 44, 60, 231, 634, 232, 654, 543] # set the seed here
+#     interface = True  # set the parameter if the interface is added here
+#     # parameters for the function run()
+#     # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
+#     # double_use_bit_len: int, group: int, puf: str) -> dict:
+#
+#     # APUF
+#     puf = "apuf"
+#     double_use_bit_len1 = [1, 2, 3, 4, 5, 6, 7, 8]
+#     group = 0
+#     for i in seed:
+#         for j in double_use_bit_len1:
+#             run(64, 3, 10000000, i, 0.00, 100000, interface, j, group, puf)
+#
+#
+#     # 3 XPUF
+#     puf = "xpuf"
+#     double_use_bit_len2 = [1, 2, 3, 4, 5, 6, 7]
+#     group = 0
+#     for i in seed:
+#         for j in double_use_bit_len2:
+#             run(64, 3, 10000000, i, 0.00, 100000, interface, j, group, puf)
+#
+#     # FFPUF
+#     puf = "ffpuf"
+#     double_use_bit_len2 = [1, 2, 3, 4, 5, 6, 7]
+#     group = 0
+#     for i in seed:
+#         for j in double_use_bit_len2:
+#             run(64, 1, 10000000, i, 0.00, 100000, interface, j, group, puf)
+#     #
+#
+#
+# if __name__ == '__main__':
+#     main()

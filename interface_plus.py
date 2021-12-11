@@ -118,7 +118,7 @@ def initialize_and_tranform_PUF(n: int, k: int, N: int, seed_sim: int, noisiness
         return challenges, responses
 
 
-def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
+def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, batch_size: int, interface: bool,
         ghost_bit_len: int, group: int, puf: str) -> dict:
     patience = 5
     epochs = 500
@@ -154,12 +154,12 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
     # 5. train
     started = datetime.now()
     history = model.fit(
-        X_train, y_train, epochs=epochs, batch_size=BATCH_SIZE,
+        X_train, y_train, epochs=epochs, batch_size=batch_size,
         callbacks=[callbacks], shuffle=True, validation_split=0.01, verbose=1
     )
 
     # 6. evaluate result
-    results = model.evaluate(X_test, y_test, batch_size=128, verbose=0)
+    results = model.evaluate(X_test, y_test, batch_size=128, verbose=1)
 
     fields = ['k', 'n', 'N', 'noise', 'training_size', 'test_accuracy', 'test_loss', 'time', 'seed', 'bit_length',
               'group']
@@ -217,35 +217,35 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
                     write.writerows(rows)
 
 
-def main(argv=None):
-    seed = [0, 17, 44, 60, 65]  # set the seed here
-    interface = True  # set the parameter if the interface is added here
-    # parameters for the function run()
-    # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
-    # ghost_bit_len: int, group: int, puf: str) -> dict:
-
-
-    # APUF
-    ghost_bit_len1 = [4, 5, 6, 7, 8, 10, 12]
-    puf = "apuf"
-    for i in seed:
-        for j in ghost_bit_len1:
-            run(64, 1, 10000000, i, 0.00, 100000, interface, j, 0, puf)
-
-    # 3 XPUF
-    puf = "xpuf"
-    ghost_bit_len2 = [4, 5, 6, 7, 8]
-    for i in seed:
-        for j in ghost_bit_len2:
-            run(64, 3, 10000000, i, 0.00, 100000, interface, j, 0, puf)
-
-    puf = "ffpuf"
-    ghost_bit_lenff = [4, 5, 6, 7, 8]
-    for i in seed:
-        for j in ghost_bit_lenff:
-            run(64, 1, 10000000, i, 0.00, 100000, interface, j, 0, puf)
-    #
-
-
-if __name__ == '__main__':
-    main()
+# def main(argv=None):
+#     seed = [0, 17, 44, 60, 65]  # set the seed here
+#     interface = True  # set the parameter if the interface is added here
+#     # parameters for the function run()
+#     # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
+#     # ghost_bit_len: int, group: int, puf: str) -> dict:
+#
+#
+#     # APUF
+#     ghost_bit_len1 = [4, 5, 6, 7, 8, 10, 12]
+#     puf = "apuf"
+#     for i in seed:
+#         for j in ghost_bit_len1:
+#             run(64, 1, 10000000, i, 0.00, 100000, interface, j, 0, puf)
+#
+#     # 3 XPUF
+#     puf = "xpuf"
+#     ghost_bit_len2 = [4, 5, 6, 7, 8]
+#     for i in seed:
+#         for j in ghost_bit_len2:
+#             run(64, 3, 10000000, i, 0.00, 100000, interface, j, 0, puf)
+#
+#     puf = "ffpuf"
+#     ghost_bit_lenff = [4, 5, 6, 7, 8]
+#     for i in seed:
+#         for j in ghost_bit_lenff:
+#             run(64, 1, 10000000, i, 0.00, 100000, interface, j, 0, puf)
+#     #
+#
+#
+# if __name__ == '__main__':
+#     main()

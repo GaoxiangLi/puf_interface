@@ -205,11 +205,11 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
     started = datetime.now()
     history = model.fit(
         X_train, y_train, epochs=epochs, batch_size=BATCH_SIZE,
-        callbacks=[callbacks], shuffle=True, validation_split=0.05, verbose=0
+        callbacks=[callbacks], shuffle=True, validation_split=0.01, verbose=1
     )
 
     # 6. evaluate result
-    results = model.evaluate(X_test, y_test, batch_size=128, verbose=0)
+    results = model.evaluate(X_test, y_test, batch_size=128, verbose=1)
     model_loss = history.history["val_loss"]
 
     epoch_chosen = model_loss.index(min(model_loss)) + 1
@@ -269,45 +269,44 @@ def run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int
                         write.writerow(fields)
                     write.writerows(rows)
 
-
-def main(argv=None):
-    seed = [0, 17, 44, 60, 65]  # set the seed here
-    interface = True  # set the parameter if the interface is added here
-    # parameters for the function run()
-    # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
-    #  unsatationary_bit_len: int, hop: int, group: int, puf: str) -> dict:
-
-    # APUF
-    puf = "apuf"
-    unsatationary_bit_len = [4, 5, 6, 7, 8]
-    hop = 2
-    noise = 0
-    group = 0
-    for i in seed:
-        for j in unsatationary_bit_len:
-            run(64, 1, 10000000, i, noise, 100000, interface, j, hop, group, puf)
-
-    hop = 3
-    for i in seed:
-        for j in unsatationary_bit_len:
-            run(64, 1, 10000000, i, noise, 100000, interface, j, hop, 0, puf)
-    # 3 XPUF
-    puf = "xpuf"
-    unsatationary_bit_len2 = [3, 4, 5]
-    hop = 1
-    group = 0
-    for i in seed:
-        for j in unsatationary_bit_len2:
-            run(64, 3, 10000000, i, noise, 100000, interface, j, hop, group, puf)
-
-    puf = "ffpuf"
-    unsatationary_bit_len2 = [10, 11, 12]
-    hop = 3
-    group = 0
-    for i in seed:
-        for j in unsatationary_bit_len2:
-            run(64, 1, 10000000, i, 0, 100000, interface, j, hop, group, puf)
-
-
-if __name__ == '__main__':
-    main()
+# def main(argv=None):
+#     seed = [0, 17, 44, 60, 65]  # set the seed here
+#     interface = True  # set the parameter if the interface is added here
+#     # parameters for the function run()
+#     # run(n: int, k: int, N: int, seed_sim: int, noisiness: float, BATCH_SIZE: int, interface: bool,
+#     #  unsatationary_bit_len: int, hop: int, group: int, puf: str) -> dict:
+#
+#     # APUF
+#     puf = "apuf"
+#     unsatationary_bit_len = [4, 5, 6, 7, 8]
+#     hop = 2
+#     noise = 0
+#     group = 0
+#     for i in seed:
+#         for j in unsatationary_bit_len:
+#             run(64, 1, 10000000, i, noise, 100000, interface, j, hop, group, puf)
+#
+#     hop = 3
+#     for i in seed:
+#         for j in unsatationary_bit_len:
+#             run(64, 1, 10000000, i, noise, 100000, interface, j, hop, 0, puf)
+#     # 3 XPUF
+#     puf = "xpuf"
+#     unsatationary_bit_len2 = [3, 4, 5]
+#     hop = 1
+#     group = 0
+#     for i in seed:
+#         for j in unsatationary_bit_len2:
+#             run(64, 3, 10000000, i, noise, 100000, interface, j, hop, group, puf)
+#
+#     puf = "ffpuf"
+#     unsatationary_bit_len2 = [10, 11, 12]
+#     hop = 3
+#     group = 0
+#     for i in seed:
+#         for j in unsatationary_bit_len2:
+#             run(64, 1, 10000000, i, 0, 100000, interface, j, hop, group, puf)
+#
+#
+# if __name__ == '__main__':
+#     main()
