@@ -7,13 +7,15 @@ Author: Yu Zhuang, Khalid Mursi, Gaoxiang Li
 How to use:
 
 1.Install required package:   
+
                         Python version 3.6
                         tensorflow 2.6
                         numpy 1.19.5
                         scikit-learn 0.24.2
                         pypuf 2.3.1
         
-2.After download and unzip the file,    
+2.After download and unzip the file,  
+
                   Use your terminal to run the command:   python puf_interface.py   in this directory.  
                   Use the command:  python puf_interface.py --help (for help to show all command line instruction)  
 
@@ -54,7 +56,7 @@ How to use:
                   Example pf output path: "ffpuf_without_interface.csv", or "3_64xpuf_interface_plus.csv"  
                   Output path can be edited pr modified in each run() function             
              
-4. Source code files include:  
+4.Source code files include:  
 
                   puf_interface.py :dispatcher file  
 
