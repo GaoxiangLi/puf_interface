@@ -70,7 +70,7 @@ How to use:
 
                   Example pf output path: "ffpuf_without_interface.csv", or "3_64xpuf_interface_plus.csv"  
                   
-                  Output path can be edited pr modified in each run() function             
+                  Output path can be edited or modified in each run() function             
              
 4.Source code files include:  
 
